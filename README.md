@@ -1,4 +1,5 @@
-# Student Wellness App
+# Student-Wellness
+HCI Module Project 2025
 
 A Django-based student wellness application with features to help students manage stress, track mood, and access mental health resources.
 
@@ -16,34 +17,27 @@ A Django-based student wellness application with features to help students manag
    git clone https://github.com/your-username/student-wellness-app.git
    cd student-wellness-app
    ```
-
 2. Create a virtual environment
    ```bash
    python -m venv venv
    source venv/bin/activate  # On Windows use: venv\Scripts\activate
    ```
-
 3. Install dependencies
    ```bash
    pip install -r requirements.txt
    ```
-
-4. Apply migrations
+4. Apply migrations:
    ```bash
    python manage.py migrate
    ```
-
-5. Create a superuser
+5. Create a superuser:
    ```bash
    python manage.py createsuperuser
    ```
-
-6. Run the development server
+6. Run the development server:
    ```bash
-   python manage.py runserver
+   python manage.py runserver 0.0.0.0:5000
    ```
-
-7. Access the application at http://127.0.0.1:8000/
 
 ## Technologies Used
 
