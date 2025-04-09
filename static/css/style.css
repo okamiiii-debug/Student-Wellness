@@ -1,0 +1,202 @@
+/* Main Dashboard Styles */
+:root {
+    --primary-color: #4e73df;
+    --secondary-color: #6c757d;
+    --success-color: #1cc88a;
+    --info-color: #36b9cc;
+    --warning-color: #f6c23e;
+    --danger-color: #e74a3b;
+    --light-color: #f8f9fc;
+    --dark-color: #5a5c69;
+    --happy-color: #4CAF50;
+    --calm-color: #2196F3;
+    --neutral-color: #9E9E9E;
+    --anxious-color: #FFC107;
+    --sad-color: #2196F3;
+    --angry-color: #F44336;
+}
+
+body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Sidebar */
+.sidebar {
+    border-right: 1px solid #eee;
+}
+
+.logo-container {
+    width: 50px;
+    height: 50px;
+}
+
+.sidebar .nav-link {
+    color: #6c757d;
+    display: flex;
+    align-items: center;
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+}
+
+.sidebar .nav-link:hover {
+    background-color: #f8f9fa;
+    color: var(--primary-color);
+}
+
+.sidebar .nav-link.active {
+    background-color: rgba(78, 115, 223, 0.1);
+    color: var(--primary-color);
+}
+
+.sidebar .nav-link i {
+    margin-right: 0.5rem;
+}
+
+/* Card Styles */
+.card {
+    border: none;
+    border-radius: 0.5rem;
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0,0,0,.125);
+    padding: 1rem 1.25rem;
+}
+
+/* Mood Tracking Styles */
+.mood-option {
+    cursor: pointer;
+    display: block;
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.mood-option:hover {
+    background-color: rgba(0,0,0,0.03);
+}
+
+.mood-option.active {
+    background-color: rgba(78, 115, 223, 0.1);
+    color: var(--primary-color);
+}
+
+.mood-icon {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: all 0.2s ease;
+}
+
+.mood-icon.happy {
+    background-color: var(--happy-color);
+}
+
+.mood-icon.calm {
+    background-color: var(--calm-color);
+}
+
+.mood-icon.neutral {
+    background-color: var(--neutral-color);
+}
+
+.mood-icon.anxious {
+    background-color: var(--anxious-color);
+}
+
+.mood-icon.sad {
+    background-color: var(--sad-color);
+}
+
+.mood-icon.angry {
+    background-color: var(--angry-color);
+}
+
+/* Calendar Styles */
+#calendar {
+    min-height: 400px;
+}
+
+.fc-event {
+    border: none;
+    cursor: pointer;
+}
+
+.reminder-type-test {
+    background-color: var(--danger-color);
+}
+
+.reminder-type-assignment {
+    background-color: var(--primary-color);
+}
+
+.reminder-type-other {
+    background-color: var(--secondary-color);
+}
+
+/* Breathing Exercise Styles */
+.breathing-container {
+    padding: 2rem 0;
+}
+
+.breathing-circle {
+    width: 200px;
+    height: 200px;
+    background-color: #4e73df;
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 4s ease-in-out, background-color 4s ease-in-out;
+    position: relative;
+}
+
+.breathing-circle.inhale {
+    transform: scale(1.2);
+    background-color: #36b9cc;
+}
+
+.breathing-circle.exhale {
+    transform: scale(1);
+    background-color: #4e73df;
+}
+
+.circle-text {
+    color: white;
+    text-align: center;
+}
+
+#instruction {
+    display: block;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+#timer {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+/* Therapist Booking Styles */
+.avatar-circle {
+    width: 60px;
+    height: 60px;
+    background-color: #e9ecef;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+    .sidebar {
+        min-height: auto;
+    }
+}

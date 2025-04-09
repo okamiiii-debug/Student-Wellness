@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 mx-auto">
+        <div class="card shadow">
+            <div class="card-header bg-white">
+                <h5 class="mb-0">Breathing Exercise</h5>
+            </div>
+            <div class="card-body text-center">
+                <div class="mb-4">
+                    <p class="lead">Take a moment to relax with this guided breathing exercise.</p>
+                    <p>Follow the circle as it expands and contracts to guide your breathing.</p>
+                </div>
+                
+                <div class="breathing-container mb-4">
+                    <div class="breathing-circle">
+                        <div class="circle-text">
+                            <span id="instruction">Breathe in</span>
+                            <div id="timer">60</div>
+                        </div>
+                    </div>
+                    <div class="breathing-status">
+                        <div class="progress mb-2">
+                            <div id="progress-bar" class="progress-bar bg-primary" role="progressbar" style="width: 0%"></div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="breathing-controls mb-4">
+                    <button id="start-btn" class="btn btn-primary btn-lg px-4 me-2">Start</button>
+                    <button id="reset-btn" class="btn btn-outline-secondary btn-lg px-4" disabled>Reset</button>
+                </div>
+                
+                <div id="exercise-complete" class="d-none">
+                    <h4 class="mb-3">Great job!</h4>
+                    <p>How are you feeling now?</p>
+                    <div class="d-flex justify-content-center gap-3 mb-4">
+                        <a href="{% url 'dashboard' %}" class="btn btn-success px-4">I feel better</a>
+                        <a href="{% url 'therapist_list' %}" class="btn btn-outline-primary px-4">Talk to a therapist</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% block extra_js %}
+<script src="/static/js/breathing.js"></script>
+{% endblock %}
+
+{% endblock %}

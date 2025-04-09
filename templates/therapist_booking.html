@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="row mb-4">
+    <div class="col-12">
+        <h1 class="h3 mb-0">Therapist Booking</h1>
+    </div>
+</div>
+
+{% if show_appointments %}
+    <!-- Appointments List -->
+    <div class="card shadow-sm mb-4">
+        <div class="card-header bg-white d-flex justify-content-between align-items-center">
+            <h5 class="mb-0">Your Appointments</h5>
+            <a href="{% url 'therapist_list' %}" class="btn btn-sm btn-primary">Book New Appointment</a>
+        </div>
+        <div class="card-body p-0">
+            {% if appointments %}
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Therapist</th>
+                                <th>Date & Time</th>
+                                <th>Status</th>
+                                <th>Reason</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for appointment in appointments %}
+                                <tr>
+                                    <td>{{ appointment.therapist.name }}</td>
+                                    <td>{{ appointment.appointment_date|date:"M d, Y" }} at {{ appointment.appointment_date|time:"g:i A" }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if appointment.status == 'confirmed' %}bg-success
+                                            {% elif appointment.status == 'pending' %}bg-warning
+                                            {% elif appointment.status == 'cancelled' %}bg-danger
+                                            {% else %}bg-secondary{% endif %}">
+                                            {{ appointment.get_status_display }}
+                                        </span>
+                                    </td>
+                                    <td>{{ appointment.reason|truncatechars:50 }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <div class="text-center py-5">
+                    <i data-feather="calendar" style="width: 48px; height: 48px;" class="text-muted mb-3"></i>
+                    <h5>No appointments yet</h5>
+                    <p class="text-muted">Book your first appointment with a therapist</p>
+                    <a href="{% url 'therapist_list' %}" class="btn btn-primary mt-2">Find a Therapist</a>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+{% elif therapist %}
+    <!-- Booking Form for Specific Therapist -->
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                <div class="card-body text-center">
+                    <div class="therapist-avatar mb-3">
+                        <div class="avatar-circle mx-auto">
+                            <i data-feather="user" style="width: 48px; height: 48px;"></i>
+                        </div>
+                    </div>
+                    <h4>{{ therapist.name }}</h4>
+                    <p class="badge bg-primary mb-2">{{ therapist.specialization }}</p>
+                    <p class="text-muted">{{ therapist.description }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white">
+                    <h5 class="mb-0">Book an Appointment</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post" action="{% url 'book_therapist' therapist.id %}">
+                        {% csrf_token %}
+                        
+                        <div class="mb-3">
+                            <label for="appointment_date" class="form-label">Select Date & Time</label>
+                            <input type="datetime-local" class="form-control" id="appointment_date" name="appointment_date" required>
+                            <div class="form-text">Choose a date and time for your session.</div>
+                        </div>
+                        
+                        <div class="mb-3">
+                            <label for="reason" class="form-label">Reason for Appointment</label>
+                            <textarea class="form-control" id="reason" name="reason" rows="4" required></textarea>
+                            <div class="form-text">Briefly describe why you'd like to talk with the therapist.</div>
+                        </div>
+                        
+                        <div class="d-grid gap-2">
+                            <button type="submit" class="btn btn-primary">Request Appointment</button>
+                            <a href="{% url 'therapist_list' %}" class="btn btn-outline-secondary">Back to Therapist List</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% else %}
+    <!-- Therapist List -->
+    <div class="row">
+        {% if therapists %}
+            {% for therapist in therapists %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-sm h-100">
+                        <div class="card-body">
+                            <div class="d-flex">
+                                <div class="avatar-circle me-3">
+                                    <i data-feather="user"></i>
+                                </div>
+                                <div>
+                                    <h5 class="card-title mb-0">{{ therapist.name }}</h5>
+                                    <p class="text-muted small">{{ therapist.specialization }}</p>
+                                </div>
+                            </div>
+                            <p class="card-text mt-3">{{ therapist.description|truncatechars:120 }}</p>
+                        </div>
+                        <div class="card-footer bg-white">
+                            <a href="{% url 'book_therapist' therapist.id %}" class="btn btn-primary d-block">Book Session</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="col-12">
+                <div class="alert alert-info">
+                    No therapists are available at the moment. Please check back later.
+                </div>
+            </div>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% endblock %}
