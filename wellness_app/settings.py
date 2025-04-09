@@ -16,6 +16,12 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0', 'localhost', '127.0.0.1', 'cf337d42-ed9f-4821-83e6-50e2f8b9671a-00-1hsiq1x4abh3r.janeway.replit.dev', '.replit.dev', '*']
 
+# CSRF Trusted Origins for Replit
+CSRF_TRUSTED_ORIGINS = [
+    'https://cf337d42-ed9f-4821-83e6-50e2f8b9671a-00-1hsiq1x4abh3r.janeway.replit.dev',
+    'https://*.replit.dev'
+]
+
 # Application definition
 
 INSTALLED_APPS = [
