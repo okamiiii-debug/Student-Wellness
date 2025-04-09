@@ -171,18 +171,24 @@ def mood_graph_data(request):
             'anxious': 0, 'sad': 0, 'angry': 0
         }
     
-    # Get mood counts for each day
-    mood_data = MoodEntry.objects.filter(
-        student=request.user,
-        created_at__date__gte=start_date,
-        created_at__date__lte=end_date
-    ).values('created_at__date', 'mood').annotate(count=Count('id'))
-    
-    # Populate the result
-    for item in mood_data:
-        date_str = item['created_at__date'].strftime('%Y-%m-%d')
-        if date_str in result:
-            result[date_str][item['mood']] = item['count']
+    try:
+        # Get all mood entries for the past 7 days
+        mood_entries = MoodEntry.objects.filter(
+            student=request.user,
+            created_at__date__gte=start_date,
+            created_at__date__lte=end_date
+        )
+        
+        # Process each entry manually instead of using complex ORM queries
+        for entry in mood_entries:
+            date_str = entry.created_at.date().strftime('%Y-%m-%d')
+            if date_str in result:
+                # Increment the count for this mood on this date
+                result[date_str][entry.mood] += 1
+                
+    except Exception as e:
+        # Log the error but return empty data rather than failing
+        print(f"Error processing mood data: {str(e)}")
     
     # Convert to list for easier consumption by Chart.js
     result_list = list(result.values())
